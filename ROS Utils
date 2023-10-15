@@ -1,0 +1,39 @@
+Installation gazebo:
+sudo apt install ros-humble-gazebo-ros-pkgs
+
+BASIC BUILD
+1) cd ros_ws/{project_name}
+2) colcon build --symlink-install
+
+GUI xacro:
+sudo apt install ros-humble-xacro ros-humble-joint-state-publisher-gui
+A CHAQUE FOIS:
+ros2 run joint_state_publisher_gui joint_state_publisher_gui
+
+LANCER RVIZ:
+0) cd ros_ws/{project_name}
+1) source install/setup.bash
+2) ros2 launch {folder_name(where launch is)} rsp.launch.py
+	exemple: ros2 launch my_bot rsp.launch.py
+DANS UNE AUTRE FENETRE:
+rviz2
+cd ros_ws/{workspace}
+rviz2 -d src/my_bot/config/view_bot.rviz 
+exemple: rviz2 -d ~/src/my_bot/config/view_bot.rviz
+rviz2 -d src/my_bot/config/view_bot.rviz 
+
+ros2 launch my_bot rsp.launch.py use_sim_time:=true
+
+GAZEBO
+1) ros2 launch gazebo_ros gazebo.launch.py
+Dans un autre terminal
+2) ros2 run gazebo_ros spawn_entity.py -topic robot_description -entity robot_name
+ros2 launch my_bot launch_sim.launch.py
+
+SIMULER KEYBOARD GAZEBO
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
+
+Obtenir les infos sur la vélocité actuelles
+ros2 topic echo /cmd_vel
